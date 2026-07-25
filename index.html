@@ -1,0 +1,922 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Hương Phù Sa · Nhà hàng miền Tây</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts: Be Vietnam Pro -->
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+    <!-- AOS CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <style>
+        /* ===== RESET & ROOT ===== */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; font-size: 16px; }
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            background: #fcf9f5;
+            color: #2d2a24;
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+        :root {
+            --xanh: #4C7C59;
+            --xanh-dark: #3a6045;
+            --nau: #8B5E3C;
+            --kem: #FFF8EE;
+            --vang: #E8C547;
+            --xanh-nhat: #EAF3E9;
+            --shadow: 0 20px 60px rgba(0,0,0,0.08);
+            --shadow-lg: 0 30px 80px rgba(0,0,0,0.12);
+            --transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1.2);
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+        h1, h2, h3, h4 { font-weight: 600; line-height: 1.3; }
+
+        /* ===== HEADER ===== */
+        .header {
+            position: fixed;
+            top: 0; left: 0; width: 100%; z-index: 1000;
+            padding: 14px 0;
+            transition: var(--transition);
+            background: transparent;
+        }
+        .header.scrolled {
+            background: rgba(44, 62, 42, 0.92);
+            backdrop-filter: blur(16px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(232, 197, 71, 0.3);
+        }
+        .header .container {
+            max-width: 1300px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .logo {
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+        .logo i { color: var(--vang); margin-right: 8px; }
+        .logo span { font-weight: 300; font-size: 1rem; letter-spacing: 3px; color: var(--vang); display: block; }
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 18px;
+            align-items: center;
+        }
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1.2px;
+            padding: 6px 12px;
+            border-radius: 30px;
+            transition: var(--transition);
+        }
+        .nav-links a:hover, .nav-links a.active { color: var(--vang); }
+        .btn-book-nav {
+            background: var(--vang) !important;
+            color: #2d2a24 !important;
+            padding: 10px 24px !important;
+            border-radius: 40px !important;
+            font-weight: 600 !important;
+            box-shadow: 0 8px 24px rgba(232, 197, 71, 0.5);
+        }
+        .btn-book-nav:hover {
+            background: #d4b33c !important;
+            transform: translateY(-2px);
+        }
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #fff;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+            overflow: hidden;
+            background: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTh3gF_FQsLDgws1Nx2KA7pw4l_v9Yk5Olge51Li5Y1CA&s=10') center/cover no-repeat;
+            background-attachment: fixed;
+            padding: 120px 20px 80px;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.7) 100%);
+            z-index: 0;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 900px;
+            animation: fadeInUp 1.2s ease-out;
+        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(60px); } to { opacity: 1; transform: translateY(0); } }
+        .hero-subtitle {
+            font-size: 1.1rem;
+            letter-spacing: 6px;
+            color: var(--vang);
+            text-transform: uppercase;
+            margin-bottom: 16px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+        }
+        .hero-title {
+            font-size: 4.2rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            text-shadow: 0 10px 30px rgba(0,0,0,0.8);
+        }
+        .hero-title i { color: var(--vang); }
+        .hero-desc {
+            font-size: 1.2rem;
+            opacity: 0.95;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+        }
+        .hero-search {
+            background: rgba(0,0,0,0.45);
+            backdrop-filter: blur(20px);
+            border-radius: 60px;
+            padding: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
+            border: 1px solid rgba(232, 197, 71, 0.4);
+            max-width: 750px;
+            margin: 0 auto;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        .hero-search .search-field {
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            border-right: 1px solid rgba(255,255,255,0.15);
+            color: #eee;
+        }
+        .hero-search .search-field:last-of-type { border-right: none; }
+        .hero-search input, .hero-search select {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: white;
+            font-family: 'Be Vietnam Pro', sans-serif;
+            font-size: 0.95rem;
+            width: 100%;
+        }
+        .hero-search input::placeholder { color: rgba(255,255,255,0.8); }
+        .hero-search select option { color: #333; }
+        .btn-search {
+            background: var(--vang);
+            color: #2d2a24;
+            border: none;
+            padding: 14px 32px;
+            border-radius: 50px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: var(--transition);
+            white-space: nowrap;
+            box-shadow: 0 8px 28px rgba(232, 197, 71, 0.7);
+            letter-spacing: 0.5px;
+        }
+        .btn-search:hover { background: #d4b33c; transform: translateY(-3px); }
+
+        /* ===== SECTION ===== */
+        .section { padding: 100px 0; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 24px; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-subtitle {
+            font-size: 0.9rem;
+            letter-spacing: 4px;
+            color: var(--xanh);
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+        .section-title {
+            font-size: 2.8rem;
+            color: var(--nau);
+            margin-bottom: 16px;
+            position: relative;
+            display: inline-block;
+        }
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: var(--vang);
+        }
+        .section-desc { color: #6c757d; max-width: 650px; margin: 0 auto; }
+
+        /* Grid */
+        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
+        .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
+        .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; }
+
+        /* Cards */
+        .card {
+            background: #fff;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        .card:hover { transform: translateY(-10px); box-shadow: var(--shadow-lg); }
+        .card img { width: 100%; height: 220px; object-fit: cover; transition: transform 0.6s; }
+        .card:hover img { transform: scale(1.05); }
+        .card-body { padding: 24px; }
+        .card-title { font-size: 1.4rem; margin-bottom: 8px; color: var(--nau); }
+        .card-text { color: #6c757d; margin-bottom: 12px; }
+
+        /* Buttons */
+        .btn-gold {
+            background: var(--vang);
+            color: #2d2a24;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: var(--transition);
+            border: none;
+            cursor: pointer;
+        }
+        .btn-outline {
+            border: 1.5px solid var(--vang);
+            color: var(--vang);
+            background: transparent;
+            padding: 12px 28px;
+            border-radius: 40px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+        .btn-gold:hover { background: #d4b33c; transform: translateY(-2px); }
+        .btn-outline:hover { background: var(--vang); color: #2d2a24; }
+
+        /* ===== VIP / ĐẶC SẮC MIỀN TÂY ===== */
+        .vip-card {
+            background: rgba(255, 252, 245, 0.92);
+            backdrop-filter: blur(8px);
+            border-radius: var(--radius);
+            padding: 30px 20px;
+            text-align: center;
+            border: 1px solid var(--vang);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+        .vip-card::before {
+            content: '🌾';
+            position: absolute;
+            top: -20px; right: -20px;
+            font-size: 4rem;
+            opacity: 0.08;
+        }
+        .vip-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(232, 197, 71, 0.15);
+            border-color: var(--xanh);
+        }
+        .vip-card i { font-size: 2.6rem; color: var(--xanh); margin-bottom: 16px; }
+        .vip-card h4 { font-size: 1.4rem; margin-bottom: 8px; color: var(--nau); }
+
+        /* ===== MENU FILTER ===== */
+        .menu-filter {
+            text-align: center;
+            margin-bottom: 40px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+        }
+        .filter-btn {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 8px 22px;
+            border-radius: 40px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: 'Be Vietnam Pro', sans-serif;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--xanh);
+            color: #fff;
+            border-color: var(--xanh);
+        }
+
+        /* ===== COMBO CARD ===== */
+        .combo-card {
+            background: white;
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+            border-left: 6px solid var(--vang);
+        }
+        .combo-card .info h4 { color: var(--nau); font-size: 1.2rem; }
+        .combo-card .info p { color: #6c757d; font-size: 0.9rem; }
+        .combo-card .price { font-weight: 700; color: var(--xanh); font-size: 1.3rem; }
+
+        /* ===== TESTIMONIALS ===== */
+        .swiper { padding: 30px 0 60px; }
+        .swiper-slide {
+            background: #fff;
+            border-radius: var(--radius);
+            padding: 35px 30px;
+            box-shadow: var(--shadow);
+            text-align: center;
+        }
+        .swiper-slide img {
+            width: 72px; height: 72px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 16px;
+            border: 3px solid var(--vang);
+        }
+        .stars { color: var(--vang); margin-bottom: 12px; font-size: 1.2rem; }
+
+        /* ===== GALLERY ===== */
+        .gallery-item {
+            border-radius: var(--radius-sm);
+            overflow: hidden;
+        }
+        .gallery-item img {
+            width: 100%; height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s;
+        }
+        .gallery-item:hover img { transform: scale(1.08); }
+
+        /* ===== MAP ===== */
+        .map-container {
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            margin-top: 20px;
+        }
+        .map-container iframe {
+            width: 100%;
+            height: 320px;
+            border: 0;
+            display: block;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            background: #1e2b22;
+            color: #ccc;
+            padding: 70px 0 20px;
+        }
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+        .footer h4 { color: var(--vang); font-size: 1.2rem; margin-bottom: 16px; }
+        .footer a { color: #bbb; text-decoration: none; transition: 0.3s; }
+        .footer a:hover { color: var(--vang); }
+        .social-links a {
+            display: inline-block;
+            width: 38px; height: 38px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 38px;
+            margin-right: 8px;
+            color: #fff;
+            transition: 0.3s;
+        }
+        .social-links a:hover { background: var(--vang); color: #1e2b22; }
+
+        /* ===== MODAL QR ===== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0; visibility: hidden;
+            transition: 0.3s;
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal {
+            background: #fff;
+            border-radius: var(--radius);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 36px 32px;
+            position: relative;
+            text-align: center;
+        }
+        .modal-close {
+            position: absolute;
+            top: 16px; right: 20px;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #999;
+        }
+        .modal h3 { color: var(--nau); margin-bottom: 8px; }
+        .modal p { color: #6c757d; margin-bottom: 16px; }
+        .qr-container {
+            background: #f5f2ed;
+            border-radius: 20px;
+            padding: 20px;
+            margin: 16px 0;
+            display: inline-block;
+        }
+        .qr-container img {
+            width: 200px;
+            height: 200px;
+            display: block;
+        }
+        .qr-note {
+            font-size: 0.85rem;
+            color: #888;
+            margin-top: 8px;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 992px) {
+            .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+            .hero-title { font-size: 3rem; }
+            .nav-links { display: none; }
+            .mobile-menu-btn { display: block; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 576px) {
+            .hero-title { font-size: 2.4rem; }
+            .hero-search { border-radius: 30px; padding: 8px; }
+            .hero-search .search-field { padding: 10px 14px; min-width: 120px; }
+            .btn-search { padding: 12px 24px; }
+            .section-title { font-size: 2.2rem; }
+            .qr-container img { width: 160px; height: 160px; }
+            .map-container iframe { height: 220px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header class="header" id="header">
+    <div class="container">
+        <a href="#" class="logo">
+            <i class="fa-solid fa-leaf"></i> Hương Phù Sa
+            <span>🌾 Đậm vị miền Tây</span>
+        </a>
+        <nav>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#home" class="active">Trang chủ</a></li>
+                <li><a href="#about">Giới thiệu</a></li>
+                <li><a href="#menu">Thực đơn</a></li>
+                <li><a href="#combo">Combo</a></li>
+                <li><a href="#dining">Đặc sản</a></li>
+                <li><a href="#testimonials">Đánh giá</a></li>
+                <li><a href="#gallery">Hình ảnh</a></li>
+                <li><a href="#contact">Liên hệ</a></li>
+                <li><a href="#menu" class="btn-book-nav" id="qrNavBtn"><i class="fa-solid fa-qrcode"></i> Gọi món QR</a></li>
+            </ul>
+            <button class="mobile-menu-btn" onclick="document.getElementById('navLinks').classList.toggle('show')">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </nav>
+    </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero" id="home">
+    <div class="hero-content" data-aos="fade-up">
+        <p class="hero-subtitle">🌾 Phù sa nuôi dưỡng tinh hoa</p>
+        <h1 class="hero-title">Hương Phù Sa <br><i class="fa-solid fa-utensils"></i> Nhà hàng miền Tây</h1>
+        <p class="hero-desc">Đậm vị sông nước – Trọn tình đồng bằng. Gọi món nhanh chóng qua mã QR, thanh toán tiện lợi.</p>
+        <div class="hero-search">
+            <div class="search-field"><i class="fa-solid fa-qrcode"></i><input type="text" placeholder="Quét QR tại bàn" readonly></div>
+            <div class="search-field"><i class="fa-solid fa-utensils"></i>
+                <select id="heroGuests" style="background:transparent; border:none; color:white; width:100%;">
+                    <option value="2">2 khách</option><option value="4" selected>4 khách</option><option value="6">6 khách</option><option value="8">8 khách</option>
+                </select>
+            </div>
+            <button class="btn-search" onclick="document.getElementById('menu').scrollIntoView({behavior:'smooth'})">
+                <i class="fa-solid fa-magnifying-glass"></i> Xem thực đơn
+            </button>
+        </div>
+    </div>
+</section>
+
+<!-- ===== GIỚI THIỆU ===== -->
+<section class="section" id="about">
+    <div class="container grid-2">
+        <div data-aos="fade-right">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRyx2T3GlTCJQ9neba6dLurU_cBz4E0B7gQ1JhNN13G-g&s=10" alt="Nhà hàng ven sông miền Tây" style="width:100%; border-radius:var(--radius); box-shadow: var(--shadow-lg);">
+        </div>
+        <div data-aos="fade-left">
+            <p class="section-subtitle">Chào mừng</p>
+            <h2 class="section-title">Tinh hoa ẩm thực miền Tây</h2>
+            <p style="margin-bottom:16px;">Hương Phù Sa mang đến những món ăn đặc sản Nam Bộ, từ gỏi sầu đâu, cá lóc nướng trui đến lẩu mắm đậm đà. Không chỉ là bữa ăn, chúng tôi kể câu chuyện văn hóa sông nước qua từng món.</p>
+            <div style="display:flex; gap:30px; margin-top:20px;">
+                <div><h3 style="color:var(--xanh); font-size:2.2rem;">15+</h3><p>Món đặc sản</p></div>
+                <div><h3 style="color:var(--xanh); font-size:2.2rem;">6</h3><p>Danh mục</p></div>
+                <div><h3 style="color:var(--xanh); font-size:2.2rem;">98%</h3><p>Hài lòng</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== THỰC ĐƠN ===== -->
+<section class="section" id="menu" style="background:#fff;">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <p class="section-subtitle">Thực đơn</p>
+            <h2 class="section-title">Món ăn đặc sắc</h2>
+        </div>
+        <div class="menu-filter" id="menuFilter">
+            <button class="filter-btn active" data-filter="all">Tất cả</button>
+            <button class="filter-btn" data-filter="Khai vị">Khai vị</button>
+            <button class="filter-btn" data-filter="Đặc sản cá đồng">Cá đồng</button>
+            <button class="filter-btn" data-filter="Đặc sản miền Tây">Miền Tây</button>
+            <button class="filter-btn" data-filter="Lẩu">Lẩu</button>
+            <button class="filter-btn" data-filter="Món nước">Món nước</button>
+            <button class="filter-btn" data-filter="Món cơm">Cơm</button>
+            <button class="filter-btn" data-filter="Tráng miệng">Tráng miệng</button>
+            <button class="filter-btn" data-filter="Thức uống">Thức uống</button>
+        </div>
+        <div class="grid-3" id="menuGrid"></div>
+    </div>
+</section>
+
+<!-- ===== COMBO ===== -->
+<section class="section" id="combo" style="background:var(--kem);">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <p class="section-subtitle">Combo</p>
+            <h2 class="section-title">Ưu đãi gia đình & cặp đôi</h2>
+        </div>
+        <div id="comboList"></div>
+    </div>
+</section>
+
+<!-- ===== ĐẶC SẢN MIỀN TÂY ===== -->
+<section class="section" id="dining" style="background:linear-gradient(135deg, #f7f2eb 0%, #f0ebe2 100%);">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <p class="section-subtitle">Đặc sản</p>
+            <h2 class="section-title">Hương vị sông nước</h2>
+            <p class="section-desc">Những món ăn gắn liền với văn hóa miền Tây, được chế biến từ nguyên liệu tươi ngon.</p>
+        </div>
+        <div class="grid-3">
+            <div class="vip-card" data-aos="fade-right">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8LQsXEimf06fFIUHHI7rsJHis2BgXQgJmPfQ4TuqHVg&s=10" alt="Cá lóc nướng trui" style="width:100%; height:160px; object-fit:cover; border-radius:10px; margin-bottom:16px;">
+                <h4>Cá lóc nướng trui</h4>
+                <p>Thịt ngọt, thơm mùi rơm, chấm nước mắm me.</p>
+            </div>
+            <div class="vip-card" data-aos="fade-up">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKCUr4XenAKZiOw94qt3-tskwz7aJUxL5CSQ9MDfXFoQ&s=10" alt="Lẩu mắm Hương Phù Sa" style="width:100%; height:160px; object-fit:cover; border-radius:10px; margin-bottom:16px;">
+                <h4>Lẩu mắm Hương Phù Sa</h4>
+                <p>Đậm đà hương vị đồng quê, hải sản tươi.</p>
+            </div>
+            <div class="vip-card" data-aos="fade-left">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOLYN7I8TFFl9OC0SNT72StaQA74WmakewSoSepE_tSA&s=10" alt="Gỏi sầu đâu" style="width:100%; height:160px; object-fit:cover; border-radius:10px; margin-bottom:16px;">
+                <h4>Gỏi sầu đâu</h4>
+                <p>Vị đắng đặc trưng, kết hợp khô cá sặc.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== ĐÁNH GIÁ ===== -->
+<section class="section" id="testimonials" style="background:#fff;">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <p class="section-subtitle">Khách hàng nói gì</p>
+            <h2 class="section-title">Phản hồi thực tế</h2>
+        </div>
+        <div class="swiper mySwiper" data-aos="fade-up">
+            <div class="swiper-wrapper">
+                <div class="swiper-slide"><img src="https://randomuser.me/api/portraits/women/44.jpg"><div class="stars">★★★★★</div><p>"Món ăn tuyệt vời, không gian ấm cúng, nhân viên thân thiện."</p><strong>Chị Mai Anh</strong></div>
+                <div class="swiper-slide"><img src="https://randomuser.me/api/portraits/men/32.jpg"><div class="stars">★★★★★</div><p>"Lẩu mắm ngon nhất Sài Gòn, sẽ quay lại nhiều lần."</p><strong>Anh Quang Huy</strong></div>
+                <div class="swiper-slide"><img src="https://randomuser.me/api/portraits/women/68.jpg"><div class="stars">★★★★★</div><p>"Combo gia đình siêu hời, ai cũng thích."</p><strong>Chị Thanh Thảo</strong></div>
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== GALLERY ===== -->
+<section class="section" id="gallery" style="background:var(--kem);">
+    <div class="container">
+        <div class="section-header" data-aos="fade-up">
+            <p class="section-subtitle">Thư viện</p>
+            <h2 class="section-title">Không gian & ẩm thực</h2>
+        </div>
+        <div class="grid-4">
+            <div class="gallery-item" data-aos="zoom-in">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTpqzPrI9fqxUG7M4MSDYuQ4eqolJsW_CD1jR-KxMmwuQ&s=10" alt="Không gian nhà hàng miền Tây 1">
+            </div>
+            <div class="gallery-item" data-aos="zoom-in">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTS29JbAWujIG2iig-pgEkK-Pt8U7W26aerk6aWgrsfaw&s=10" alt="Không gian nhà hàng miền Tây 2">
+            </div>
+            <div class="gallery-item" data-aos="zoom-in">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrV3cz4TJlVEvyOEFg6xVlxy-tbsej9Gj-ebrSJfGnLA&s=10" alt="Không gian nhà hàng miền Tây 3">
+            </div>
+            <div class="gallery-item" data-aos="zoom-in">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcROR6jcHW85mVqK6kUfZx6SQRoKcU67guTahLMG1ZJW3w&s=10" alt="Không gian nhà hàng miền Tây 4">
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== LIÊN HỆ ===== -->
+<section class="section" id="contact">
+    <div class="container">
+        <div class="grid-2" style="margin-bottom:40px;">
+            <div data-aos="fade-right">
+                <p class="section-subtitle">Liên hệ</p>
+                <h2 class="section-title">Thông tin nhà hàng</h2>
+                <p><i class="fa-solid fa-location-dot" style="color:var(--xanh);"></i> 123 Đường Nguyễn Văn Linh, Cần Thơ</p>
+                <p><i class="fa-solid fa-phone" style="color:var(--xanh);"></i> +84 292 3868 999</p>
+                <p><i class="fa-solid fa-envelope" style="color:var(--xanh);"></i> info@huongphusa.vn</p>
+                <div class="social-links" style="margin-top:20px;">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-tripadvisor"></i></a>
+                </div>
+            </div>
+            <div data-aos="fade-left">
+                <form onsubmit="event.preventDefault(); alert('Cảm ơn bạn đã liên hệ! Chúng tôi sẽ phản hồi sớm.');">
+                    <input type="text" placeholder="Họ tên" style="width:100%; padding:14px; margin-bottom:14px; border:1px solid #ddd; border-radius:30px; font-family:inherit;">
+                    <input type="email" placeholder="Email" style="width:100%; padding:14px; margin-bottom:14px; border:1px solid #ddd; border-radius:30px; font-family:inherit;">
+                    <textarea rows="4" placeholder="Lời nhắn" style="width:100%; padding:14px; margin-bottom:14px; border:1px solid #ddd; border-radius:20px; font-family:inherit;"></textarea>
+                    <button class="btn-gold">Gửi tin nhắn</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- ===== BẢN ĐỒ GOOGLE MAPS ===== -->
+        <div data-aos="fade-up">
+            <div class="section-header" style="margin-bottom:20px;">
+                <p class="section-subtitle">Bản đồ</p>
+                <h2 class="section-title">Định vị nhà hàng</h2>
+            </div>
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3928.84216407276!2d105.754363!3d10.045160!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31a0883ba8d8e2d7%3A0x3f0b6b5c8c4e8b2f!2zQ-G6p24gVGjGoQ!5e0!3m2!1svi!2s!4v1700000000000" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            <p style="text-align:center; margin-top:12px; color:#6c757d; font-size:0.9rem;">
+                <i class="fa-solid fa-location-dot" style="color:var(--xanh);"></i> 123 Đường Nguyễn Văn Linh, Cần Thơ
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+    <div class="container footer-grid">
+        <div>
+            <h4><i class="fa-solid fa-leaf" style="color:var(--vang);"></i> Hương Phù Sa</h4>
+            <p>Nhà hàng đặc sản miền Tây, mang đậm hương vị sông nước và tình người Nam Bộ.</p>
+        </div>
+        <div>
+            <h4>Thực đơn</h4>
+            <a href="#menu">Khai vị</a><br>
+            <a href="#menu">Cá đồng</a><br>
+            <a href="#menu">Lẩu</a><br>
+            <a href="#menu">Món nước</a>
+        </div>
+        <div>
+            <h4>Thông tin</h4>
+            <a href="#about">Giới thiệu</a><br>
+            <a href="#gallery">Hình ảnh</a><br>
+            <a href="#contact">Liên hệ</a><br>
+            <a href="#">Chính sách</a>
+        </div>
+        <div>
+            <h4>Đặt bàn</h4>
+            <p>Hotline: 1800-9999</p>
+            <p>Email: book@huongphusa.vn</p>
+        </div>
+    </div>
+    <div style="text-align:center; border-top:1px solid #3a4a3a; padding-top:20px; font-size:0.9rem;">
+        © 2025 Hương Phù Sa. Tất cả quyền được bảo lưu. 🌾🚣🌊
+    </div>
+</footer>
+
+<!-- ===== MODAL QR ===== -->
+<div class="modal-overlay" id="qrModal">
+    <div class="modal">
+        <button class="modal-close" onclick="closeQR()"><i class="fa-solid fa-xmark"></i></button>
+        <h3><i class="fa-solid fa-qrcode" style="color:var(--vang);"></i> Quét mã QR để gọi món</h3>
+        <p>Mở camera trên điện thoại, quét mã QR dưới đây để truy cập thực đơn và đặt món trực tiếp.</p>
+        <div class="qr-container">
+            <img id="qrImage" src="" alt="Mã QR gọi món Hương Phù Sa">
+        </div>
+        <p class="qr-note">Mã QR này sẽ dẫn đến trang web của nhà hàng.</p>
+        <button class="btn-gold" onclick="closeQR()" style="width:100%;">Đóng</button>
+    </div>
+</div>
+
+<!-- ===== SCRIPTS ===== -->
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+    // ===================== DATA =====================
+    const menuData = [
+        // Khai vị
+        { id:1, name:'Gỏi sầu đâu khô cá sặc', price:119000, category:'Khai vị', desc:'Vị đắng đặc trưng của sầu đâu kết hợp khô cá sặc thơm lừng.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQOLYN7I8TFFl9OC0SNT72StaQA74WmakewSoSepE_tSA&s=10' },
+        { id:2, name:'Gỏi ngó sen tôm thịt', price:99000, category:'Khai vị', desc:'Giòn, mát, đậm đà hương vị đồng quê.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTphRhRjhszctyL5lmNuFQBT-0cae9iCJqSODOuGMMcfQ&s=10' },
+        { id:3, name:'Bánh phồng cá thác lác', price:59000, category:'Khai vị', desc:'Giòn rụm, béo ngậy, chấm nước mắm chua ngọt.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxQ2AdPw8HhfPDwPv-LgcfhQtKOKKqsMt_PpvA_2tjOQ&s=10' },
+        { id:4, name:'Chả giò tôm đất', price:89000, category:'Khai vị', desc:'Vỏ giòn, nhân tôm đất thơm ngon.', img:'https://images.unsplash.com/photo-1601050690597-df0568f70950?w=400&h=260&fit=crop&crop=center' },
+        { id:5, name:'Bánh xèo miền Tây', price:79000, category:'Khai vị', desc:'Bánh xèo vàng ươm, nhân tôm, thịt, giá đỗ.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQD6LnFVlcCXwYXQtkWVmRiPh7NtoQzrRjuzCSqKGVj6Q&s=10' },
+        // Đặc sản cá đồng
+        { id:6, name:'Cá lóc nướng trui', price:289000, category:'Đặc sản cá đồng', desc:'Cá lóc nướng trên rơm, thịt ngọt, thơm mùi đồng nội.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8LQsXEimf06fFIUHHI7rsJHis2BgXQgJmPfQ4TuqHVg&s=10' },
+        { id:7, name:'Cá kèo nướng muối ớt', price:219000, category:'Đặc sản cá đồng', desc:'Cá kèo béo, nướng muối ớt đậm đà.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRp-rYRyJjGQYuhjZ3JNqNMcMvaoYlCrZMu9ASD2PEulQ&s=10' },
+        { id:8, name:'Cá linh kho mía', price:189000, category:'Đặc sản cá đồng', desc:'Cá linh kho với mía, vị ngọt thanh.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWqn6F9qbWYgwMWcnpZetphpNHhunb6Bzt982PmzGefQ&s=10' },
+        { id:9, name:'Cá bông lau kho tộ', price:249000, category:'Đặc sản cá đồng', desc:'Cá bông lau kho tộ đậm đà, ăn với cơm trắng.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTquTtJ40jIcDZNtEAjYlwc87LlNxTeqttoaL_P9XccPw&s=10' },
+        { id:10, name:'Cá rô đồng chiên giòn', price:199000, category:'Đặc sản cá đồng', desc:'Cá rô chiên giòn, chấm nước mắm gừng.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6bkDYxdPe85FsvSK2eZTjUntNuY1RUVwAn3CNBTEgrQ&s=10' },
+        // Đặc sản miền Tây
+        { id:11, name:'Vịt nấu chao', price:329000, category:'Đặc sản miền Tây', desc:'Vịt béo, nấu chao đậm vị, thơm nức.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTocAaT0b5RKBOmJwZxONw9mpcc7Hu2dvzzHZJ-ktTycQ&s=10' },
+        { id:12, name:'Gà hấp lá chúc', price:299000, category:'Đặc sản miền Tây', desc:'Gà hấp lá chúc, thịt mềm, hương thơm đặc trưng.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSU1ueKvRzkvnnLgVMsXpaL6UzuWGqfFAdqSXp3XglYUA&s=10' },
+        { id:13, name:'Ba khía trộn', price:149000, category:'Đặc sản miền Tây', desc:'Ba khía trộn với xoài, rau thơm, chua cay mặn ngọt.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR8M2XJIIoP1I5R0mJ29j7T2qskV4WCtVQQOKEEK74ZuA&s=10' },
+        { id:14, name:'Chuột đồng nướng lu', price:229000, category:'Đặc sản miền Tây', desc:'Chuột đồng nướng lu, thịt săn chắc, đậm đà.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ4MoE5QddKFA0NpTKZtJZxf9wvN6_otDqtIrRgOQfpLw&s=10' },
+        { id:15, name:'Bò nướng lá lốt', price:179000, category:'Đặc sản miền Tây', desc:'Bò nướng lá lốt thơm nức, ăn kèm bánh tráng.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQYp9IECbdFpQXoiJYE40rjwgeV5sdd7Ukod3QEpvCbtg&s=10' },
+        // Lẩu
+        { id:16, name:'Lẩu mắm Hương Phù Sa', price:429000, category:'Lẩu', desc:'Nước lẩu mắm đặc trưng, hải sản tươi ngon.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKCUr4XenAKZiOw94qt3-tskwz7aJUxL5CSQ9MDfXFoQ&s=10' },
+        { id:17, name:'Lẩu cá linh bông điên điển', price:399000, category:'Lẩu', desc:'Vị chua thanh của bông điên điển, cá linh béo.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSCgLeucykcV6VsRn2CNseOAxfNR-ZaHrWrs7zErGNBTQ&s=10' },
+        { id:18, name:'Lẩu cua đồng', price:369000, category:'Lẩu', desc:'Nước lẩu ngọt từ cua đồng, rau đồng tươi.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR2P5X14_IaOol-ySLdXBwCyXwbSgwOqeMmCJ2FOppDqg&s=10' },
+        { id:19, name:'Lẩu gà lá giang', price:349000, category:'Lẩu', desc:'Gà đồng, lá giang chua nhẹ, thanh mát.', img:'https://images.unsplash.com/photo-1603133872878-684f208fb84b?w=400&h=260&fit=crop&crop=center' },
+        // Món nước
+        { id:20, name:'Bún cá Châu Đốc', price:89000, category:'Món nước', desc:'Bún cá Châu Đốc nổi tiếng, nước dùng trong, cá tươi.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9rjNSFGWvlck1zaoT7huZFgHl6FF9mfuGXV6h7QhpYQ&s=10' },
+        { id:21, name:'Hủ tiếu Mỹ Tho', price:79000, category:'Món nước', desc:'Hủ tiếu Mỹ Tho dai, nước dùng đậm đà.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TCsxsFMQKesm9hKphKbQ5TWDstIQl8hYJWy7RZ6JhQ&s=10' },
+        { id:22, name:'Bún mắm', price:95000, category:'Món nước', desc:'Bún mắm đặc trưng miền Tây, vị mặn mà.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9yChnle6kBtvUO1UG6n49LoP3FuqlQzUdsbUzaE5tgw&s=10' },
+        { id:23, name:'Bánh canh vịt xiêm', price:99000, category:'Món nước', desc:'Bánh canh dai, nước dùng từ vịt xiêm.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRiMBRjBrj3f3rtcHV_sr22US8MpZQ8OlpzkSe81UWkfQ&s=10' },
+        // Món cơm
+        { id:24, name:'Cơm cá kho tộ', price:99000, category:'Món cơm', desc:'Cơm trắng nóng, cá kho tộ đậm đà.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRNLca6edXfLHjKxZmA1Ld7l52yNXQEXeAnpm2Ez5hZXw&s=10' },
+        { id:25, name:'Cơm gà nướng mật ong', price:109000, category:'Món cơm', desc:'Gà nướng mật ong thơm, ăn kèm cơm.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQtPzMLo0SzPDYEEzHYz81Dle_DlFlaxG8me98TYpc2CQ&s=10' },
+        { id:26, name:'Cơm sườn nướng', price:99000, category:'Món cơm', desc:'Sườn nướng thơm lừng, cơm trắng, dưa leo.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJ-ROS8WrFtQlHb-NRoEZXZK6833EidWGw6wlmLlh5Yg&s=10' },
+        { id:27, name:'Cơm chiên cá mặn', price:109000, category:'Món cơm', desc:'Cơm chiên với cá mặn, trứng, hành lá.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR_1No_fnyyb6i3A6ais6VE5SBjy2YYhGMGrnOncv76Yg&s=10' },
+        // Tráng miệng
+        { id:28, name:'Bánh bò thốt nốt', price:39000, category:'Tráng miệng', desc:'Bánh bò mềm xốp, vị thốt nốt ngọt thanh.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSY1tBA8GVFOBaW-8e4QscDiTb5gl5VHitaystMHt9BBA&s=10' },
+        { id:29, name:'Chè thốt nốt', price:49000, category:'Tráng miệng', desc:'Chè thốt nốt với nước cốt dừa béo.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQVf7lluv4i3zKd4E8C1FXlP35EkImtnfBQ6A0DR2PtyQ&s=10' },
+        { id:30, name:'Chuối nếp nướng', price:59000, category:'Tráng miệng', desc:'Chuối nếp nướng thơm lừng, ăn kèm nước cốt dừa.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR3Uq_1fN6j9blqx9ynm8RzetQxOsaLfYYQHXxiaQ1RBQ&s=10' },
+        { id:31, name:'Bánh da lợn', price:39000, category:'Tráng miệng', desc:'Bánh da lợn nhiều tầng, dẻo thơm.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfAQQMyfzvYwLFJYM6sp34hyHDIm2gWFmeSGSwM8Y2aQ&s=10' },
+        { id:32, name:'Kem dừa', price:49000, category:'Tráng miệng', desc:'Kem dừa béo mát, thơm hương vị nhiệt đới.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRSSOhYlJtdd4mtP3QcVUq4PeMoTy4MeTWF-qaZJEh-AQ&s=10' },
+        // Thức uống
+        { id:33, name:'Nước dừa tươi', price:39000, category:'Thức uống', desc:'Dừa tươi mát lạnh, giải khát.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSK-jg1voqEN-H_1T1bdv21wwBBB-SxhpQ6L2lUfBaDnw&s=10' },
+        { id:34, name:'Nước mía', price:29000, category:'Thức uống', desc:'Nước mía tươi, thơm ngọt.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSeRYLiW6oFfK4AStJ1poQDTdntBLh36GGtP99BKgniug&s=10' },
+        { id:35, name:'Trà tắc mật ong', price:45000, category:'Thức uống', desc:'Trà tắc mật ong chua ngọt, thanh mát.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSWuhecwCz_1NZrUS0VyflnrMTHxB7UOH8orNd1k8F6nw&s=10' },
+        { id:36, name:'Nước sâm', price:35000, category:'Thức uống', desc:'Nước sâm bổ dưỡng, giải nhiệt.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRKMOmpndV1TsEdNBSbcVkLNitSVYiE50snIUpZmTjxA&s=10' },
+        { id:37, name:'Sinh tố xoài Cát Hòa Lộc', price:65000, category:'Thức uống', desc:'Sinh tố xoài thơm ngọt, bổ dưỡng.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTbhLH3CCvvaU0r3TLX7Nmtu78COPs5dwdSNVrGatD1jA&s=10' },
+        { id:38, name:'Sinh tố bơ', price:65000, category:'Thức uống', desc:'Sinh tố bơ béo mịn, thơm ngon.', img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-vXNnCE5apJJUAxxoWiBAaGR0G-jN_CTPYhRCahLy9g&s=10' },
+        { id:39, name:'Cà phê sữa đá', price:39000, category:'Thức uống', desc:'Cà phê đậm đà, sữa đặc thơm béo.', img:'https://images.unsplash.com/photo-1559925393-8be0ec4767c8?w=400&h=260&fit=crop&crop=center' }
+    ];
+
+    const combos = [
+        { name: 'Combo Gia Đình', price: 1199000, desc: 'Lẩu mắm + Cá kèo nướng + Chả giò + Bánh bò + 4 nước sâm', emoji: '👨‍👩‍👧‍👦' },
+        { name: 'Combo Cặp Đôi', price: 599000, desc: 'Gỏi ngó sen + Cá lóc nướng trui + 2 nước dừa', emoji: '💑' }
+    ];
+
+    // ===================== RENDER MENU =====================
+    function renderMenu(filter = 'all') {
+        const grid = document.getElementById('menuGrid');
+        const items = filter === 'all' ? menuData : menuData.filter(m => m.category === filter);
+        grid.innerHTML = items.map(item => `
+            <div class="card" data-aos="fade-up">
+                <img src="${item.img}" alt="${item.name}" loading="lazy" onerror="this.src='https://via.placeholder.com/400x260/f5f2ed/8B5E3C?text=${encodeURIComponent(item.name)}'">
+                <div class="card-body">
+                    <h3 class="card-title">${item.name}</h3>
+                    <p class="card-text">${item.desc}</p>
+                    <p style="color:var(--xanh); font-weight:700; font-size:1.2rem;">${formatPrice(item.price)}</p>
+                    <button class="btn-gold" onclick="alert('Đã thêm ${item.name} vào giỏ!')"><i class="fa-solid fa-plus"></i> Thêm vào giỏ</button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    function formatPrice(v) { return v.toLocaleString('vi-VN') + 'đ'; }
+
+    // ===================== FILTER =====================
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            this.classList.add('active');
+            renderMenu(this.dataset.filter);
+        });
+    });
+
+    // ===================== COMBO =====================
+    function renderCombos() {
+        const container = document.getElementById('comboList');
+        container.innerHTML = combos.map(c => `
+            <div class="combo-card" data-aos="fade-up">
+                <div class="info">
+                    <h4>${c.emoji} ${c.name}</h4>
+                    <p>${c.desc}</p>
+                </div>
+                <div class="price">${formatPrice(c.price)}</div>
+            </div>
+        `).join('');
+    }
+
+    // ===================== QR MODAL =====================
+    function generateQR() {
+        const url = window.location.href;
+        const qrImg = document.getElementById('qrImage');
+        qrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(url)}&bgcolor=f5f2ed&color=2d2a24`;
+        qrImg.alt = 'Mã QR gọi món Hương Phù Sa';
+    }
+
+    function openQRModal() {
+        generateQR();
+        document.getElementById('qrModal').classList.add('active');
+    }
+
+    window.closeQR = function() {
+        document.getElementById('qrModal').classList.remove('active');
+    };
+
+    document.getElementById('qrNavBtn').addEventListener('click', function(e) {
+        e.preventDefault();
+        openQRModal();
+    });
+
+    // ===================== SWIPER =====================
+    new Swiper(".mySwiper", {
+        slidesPerView: 1,
+        spaceBetween: 30,
+        pagination: { el: ".swiper-pagination", clickable: true },
+        breakpoints: { 768: { slidesPerView: 2 } }
+    });
+
+    // ===================== AOS =====================
+    AOS.init({ duration: 800, once: true });
+
+    // ===================== HEADER SCROLL =====================
+    window.addEventListener('scroll', () => {
+        document.getElementById('header').classList.toggle('scrolled', window.scrollY > 80);
+    });
+
+    // ===================== INIT =====================
+    renderMenu('all');
+    renderCombos();
+
+    // ===================== MOBILE MENU =====================
+    document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+        const nav = document.getElementById('navLinks');
+        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    });
+
+    // Đóng modal khi bấm bên ngoài
+    document.getElementById('qrModal').addEventListener('click', function(e) {
+        if (e.target === this) closeQR();
+    });
+</script>
+</body>
+</html>
